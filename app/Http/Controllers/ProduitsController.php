@@ -1,22 +1,22 @@
-<?php namespace App\Http\Controllers;
+<?php
 
-use Illuminate\Support\Facades\Input;
+namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
+
+use App\Categorie;
 use Validator;
 use Response;
-use App\Post;
-use View;
+use App\Produit;
 
-
-
-    class PostsController extends Controller
+class ProduitsController extends Controller
 {
-    /**
-    * @var array
+    /*
+    @var array
     */
     protected $rules =
     [
-        'title' => 'required|min:2|max:32|regex:/^[a-z ,.\'-]+$/i',
+        'libelle' => 'required|min:2|max:32|regex:/^[a-z ,.\'-]+$/i',
         'content' => 'required|min:2|max:128|regex:/^[a-z ,.\'-]+$/i'
     ];
     /**
@@ -26,8 +26,8 @@ use View;
      */
     public function index()
     {
-        $posts = Post::orderBy('id', 'desc')->get();
-        return view('posts.index', ['posts' => $posts]);
+        $posts = Produit::orderBy('id', 'desc')->get();
+        return view('produit.index', ['posts' => $posts]);
     }
     /**
      * Show the form for creating a new resource.
@@ -46,16 +46,13 @@ use View;
      */
     public function store(Request $request)
     {
-        $validator = Validator::make(Input::all(), $this->rules);
-        if ($validator->fails()) {
-            return Response::json(array('errors' => $validator->getMessageBag()->toArray()));
-        } else {
-            $post = new Post();
-            $post->title = $request->title;
-            $post->content = $request->content;
+       
+            $post = new Produit();
+            $post->libelle = $request->libelle;
+           
             $post->save();
             return response()->json($post);
-        }
+        
     }
     /**
      * Display the specified resource.

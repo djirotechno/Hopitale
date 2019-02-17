@@ -38,7 +38,7 @@
     {{-- <link rel="stylesheet" href="{{ asset('font-awesome/css/font-awesome.min.css') }}"> --}}
    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Muli:400,300' rel='stylesheet' type='text/css'>
-    <link href="assets/css/themify-icons.css" rel="stylesheet">
+    <link href="/asset/css/themify-icons.css" rel="stylesheet">
 
     <style>
         .panel-heading {
@@ -171,11 +171,11 @@
                                 @foreach($posts as $indexKey => $post)
                                     <tr class="item{{$post->id}} @if($post->is_published) warning @endif">
                                         <td class="col1">{{ $indexKey+1 }}</td>
-                                        <td>{{$post->title}}</td>
+                                        <td>{{$post->libelle}}</td>
                                        
                                        
                                         <td>
-                                            <button class="show-modal btn btn-success" data-id="{{$post->id}}" data-title="{{$post->title}}" data-content="{{$post->content}}">
+                                            <button class="show-modal btn btn-success" data-id="{{$post->id}}" data-title="{{$post->libelle}}" data-content="{{$post->content}}">
                                             <span class="glyphicon glyphicon-eye-open"></span> Show</button>
                                             <button class="edit-modal btn btn-info" data-id="{{$post->id}}" data-title="{{$post->title}}" data-content="{{$post->content}}">
                                             <span class="glyphicon glyphicon-edit"></span> Edit</button>
@@ -376,33 +376,7 @@
         })
     </script>
 
-    <script>
-        $(document).ready(function(){
-            $('.published').iCheck({
-                checkboxClass: 'icheckbox_square-yellow',
-                radioClass: 'iradio_square-yellow',
-                increaseArea: '20%'
-            });
-            $('.published').on('ifClicked', function(event){
-                id = $(this).data('id');
-                $.ajax({
-                    type: 'POST',
-                    url: "{{ URL::route('changeStatus') }}",
-                    data: {
-                        '_token': $('input[name=_token]').val(),
-                        'id': id
-                    },
-                    success: function(data) {
-                        // empty
-                    },
-                });
-            });
-            $('.published').on('ifToggled', function(event) {
-                $(this).closest('tr').toggleClass('warning');
-            });
-        });
-        
-    </script>
+    
 
     <!-- AJAX CRUD operations -->
     <script type="text/javascript">
@@ -413,11 +387,11 @@
         });
         $('.modal-footer').on('click', '.add', function() {
             $.ajax({
-                type: 'POST',
-                url: 'posts',
+                type:'POST',
+                url:'/produit/store',
                 data: {
                     '_token': $('input[name=_token]').val(),
-                    'title': $('#title_add').val(),
+                    'libelle': $('#title_add').val(),
                     'content': $('#content_add').val()
                 },
                 success: function(data) {
@@ -438,7 +412,7 @@
                         }
                     } else {
                         toastr.success('Successfully added Post!', 'Success Alert', {timeOut: 5000});
-                        $('#postTable').prepend("<tr class='item" + data.id + "'><td class='col1'>" + data.id + "</td><td>" + data.title + "</td><td>" + data.content + "</td><td class='text-center'><input type='checkbox' class='new_published' data-id='" + data.id + " '></td><td>Just now!</td><td><button class='show-modal btn btn-success' data-id='" + data.id + "' data-title='" + data.title + "' data-content='" + data.content + "'><span class='glyphicon glyphicon-eye-open'></span> Show</button> <button class='edit-modal btn btn-info' data-id='" + data.id + "' data-title='" + data.title + "' data-content='" + data.content + "'><span class='glyphicon glyphicon-edit'></span> Edit</button> <button class='delete-modal btn btn-danger' data-id='" + data.id + "' data-title='" + data.title + "' data-content='" + data.content + "'><span class='glyphicon glyphicon-trash'></span> Delete</button></td></tr>");
+                        $('#postTable').prepend("<tr class='item" + data.id + "'><td class='col1'>" + data.id + "</td><td>" + data.libelle + "</td><td>" + data.content + "</td><td class='text-center'><input type='checkbox' class='new_published' data-id='" + data.id + " '></td><td>Just now!</td><td><button class='show-modal btn btn-success' data-id='" + data.id + "' data-title='" + data.title + "' data-content='" + data.content + "'><span class='glyphicon glyphicon-eye-open'></span> Show</button> <button class='edit-modal btn btn-info' data-id='" + data.id + "' data-title='" + data.title + "' data-content='" + data.content + "'><span class='glyphicon glyphicon-edit'></span> Edit</button> <button class='delete-modal btn btn-danger' data-id='" + data.id + "' data-title='" + data.title + "' data-content='" + data.content + "'><span class='glyphicon glyphicon-trash'></span> Delete</button></td></tr>");
                         
                         $('.new_published').on('ifToggled', function(event){
                             $(this).closest('tr').toggleClass('warning');
