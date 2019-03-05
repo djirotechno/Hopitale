@@ -18,6 +18,7 @@ class CreateProtocolesTable extends Migration
             $table->increments('id');
             $table->string('protocole_nom')->unique();
             $table->string('protocole_desc');
+            $table->decimal('prix');
             $table->timestamps();
         });
     }

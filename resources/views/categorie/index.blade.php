@@ -76,82 +76,17 @@
 </head>
 
 <body>
+     @include('layouts.navbar')
 <div class="container">
-    <div class="row">
-        <div class="main-panel pull-right">
-            <nav class="navbar navbar-default">
-                    <div class="container-fluid">
-                        <div class="navbar-header">
-                            <button type="button" class="navbar-toggle">
-                                <span class="sr-only">Toggle navigation</span>
-                                <span class="icon-bar bar1"></span>
-                                <span class="icon-bar bar2"></span>
-                                <span class="icon-bar bar3"></span>
-                            </button>
-                            <a class="navbar-brand" href="#">Table List</a>
-                        </div>
-                        <div class="collapse navbar-collapse">
-                            <ul class="nav navbar-nav navbar-left">
-                                <li>
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                        <i class="ti-panel"></i>
-                                        <p>Stats</p>
-                                    </a>
-                                </li>
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                            <i class="ti-bell"></i>
-                                            <p class="notification">5</p>
-                                            <p>Notifications</p>
-                                            <b class="caret"></b>
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="#">Notification 1</a></li>
-                                        <li><a href="#">Notification 2</a></li>
-                                        <li><a href="#">Notification 3</a></li>
-                                        <li><a href="#">Notification 4</a></li>
-                                        <li><a href="#">Another notification</a></li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="ti-settings"></i>
-                                        <p>Settings</p>
-                                    </a>
-                                </li>
-                            </ul>
-                                <ul class="nav navbar-nav navbar-right">
-                                
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                            <i class="ti-bell"></i>
-                                            <p class="notification">5</p>
-                                            <p>Notifications</p>
-                                            <b class="caret"></b>
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="#">Notification 1</a></li>
-                                        <li><a href="#">Notification 2</a></li>
-                                        <li><a href="#">Notification 3</a></li>
-                                        <li><a href="#">Notification 4</a></li>
-                                        <li><a href="#">Another notification</a></li>
-                                    </ul>
-                                </li>
-                                
-                            </ul>
-                        </div>
-                    </div>
-            </nav>
-        </div>
-    </div>
+           
     <div class="row">
             <div class="col-md-8 col-lg-10 col-md-offset-2">
            
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <ul>
-                        <li><i class="fa fa-file-text-o"></i> All the current Posts</li>
-                        <a href="#" class="add-modal"><li>Add a Post</li></a>
+                        
+                        <a href="#" class="add-modal"><li>Nouveau</li></a>
                     </ul>
                 </div>
             
@@ -171,18 +106,16 @@
                                     <tr >
                                         <td class="col1">{{ $indexKey+1 }}</td>
                                         <td>{{$post->categorie_nom}}</td>
-                                        <td>
-                                            {{App\Post::getExcerpt($post->content)}}
-                                        </td>
+                                       
                                         
                                        
                                         <td>
                                             <button class="show-modal btn btn-success" data-id="{{$post->id}}" data-title="{{$post->categorie_nom}}">
-                                            <span class="glyphicon glyphicon-eye-open"></span> Show</button>
+                                            <span class="glyphicon glyphicon-eye-open"></span> voir</button>
                                             <button class="edit-modal btn btn-info" data-id="{{$post->id}}" data-title="{{$post->categorie_nom}}">
-                                            <span class="glyphicon glyphicon-edit"></span> Edit</button>
+                                            <span class="glyphicon glyphicon-edit"></span> Edite</button>
                                             <button class="delete-modal btn btn-danger" data-id="{{$post->id}}" data-title="{{$post->categorie_nom}}">
-                                            <span class="glyphicon glyphicon-trash"></span> Delete</button>
+                                            <span class="glyphicon glyphicon-trash"></span> supprimer</button>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -226,7 +159,7 @@
             </div>
         </div>
 
-        <!-- Modal form to show a post -->
+         <!-- Modal form to show a post -->
         <div id="showModal" class="modal fade" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -341,7 +274,7 @@
             </div>
         </div>
 
-</div>
+</div> 
 
     <!-- jQuery -->
     {{-- <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script> --}}
@@ -366,31 +299,7 @@
         })
     </script>
 
-    <script>
-        $(document).ready(function(){
-            $('.published').iCheck({
-                checkboxClass: 'icheckbox_square-yellow',
-                radioClass: 'iradio_square-yellow',
-                increaseArea: '20%'
-            });
-            $('.published').on('ifClicked', function(event){
-                id = $(this).data('id');
-                $.ajax({
-                    type: 'POST',
-                    url: "{{ URL::route('changeStatus') }}",
-                    data: {
-                        '_token': $('input[name=_token]').val(),
-                        'id': id
-                    },
-                    success: function(data) {
-                        // empty
-                    },
-                });
-            });
-            
-        });
-        
-    </script>
+   
 
     <!-- AJAX CRUD operations -->
     <script type="text/javascript">
@@ -495,20 +404,7 @@
                         $('.edit_published').on('ifToggled', function(event) {
                             $(this).closest('tr').toggleClass('warning');
                         });
-                        $('.edit_published').on('ifChanged', function(event){
-                            id = $(this).data('id');
-                            $.ajax({
-                                type: 'POST',
-                                url: "{{ URL::route('changeStatus') }}",
-                                data: {
-                                    '_token': $('input[name=_token]').val(),
-                                    'id': id
-                                },
-                                success: function(data) {
-                                    // empty
-                                },
-                            });
-                        });
+                        
                         $('.col1').each(function (index) {
                             $(this).html(index+1);
                         });

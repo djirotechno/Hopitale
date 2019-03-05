@@ -8,6 +8,7 @@ use App\Categorie;
 use Validator;
 use Response;
 use App\Produit;
+use App\Protocole;
 
 class ProduitsController extends Controller
 {
@@ -26,8 +27,14 @@ class ProduitsController extends Controller
      */
     public function index()
     {
-        $posts = Produit::orderBy('id', 'desc')->get();
-        return view('produit.index', ['posts' => $posts]);
+        $categorie = Categorie::get();
+        $protocole = Protocole::get();
+        $produit = Produit::orderBy('id', 'desc')->paginate(5);
+        return view('produit.index',[
+            'protocole'=> $protocole,
+            'produit' => $produit,
+            'categorie' => $categorie,
+        ] );
     }
     /**
      * Show the form for creating a new resource.
@@ -37,6 +44,7 @@ class ProduitsController extends Controller
     public function create()
     {
         //
+       
     }
     /**
      * Store a newly created resource in storage.
@@ -47,12 +55,21 @@ class ProduitsController extends Controller
     public function store(Request $request)
     {
        
-            $post = new Produit();
-            $post->libelle = $request->libelle;
-           
-            $post->save();
-            return response()->json($post);
-        
+         $produit = Produit::create([
+
+            'libelle'=> \request('libelle'),
+            'code'=> \request('code'),
+            'date_fab'=> \request('date_fab'),
+            'formule'=> \request('formule'),
+            'indication'=> \request('indication'),
+            'recommandation'=> \request('recommandation'),
+            'prix'=> \request('prix'),
+            'stock'=> \request('stock'),
+            'categorie_id'=> \request('categorie_id'),
+            'protocole_id'=> \request('protocole_id'),
+            
+        ]);
+        return redirect()->back();
     }
     /**
      * Display the specified resource.
@@ -62,8 +79,7 @@ class ProduitsController extends Controller
      */
     public function show($id)
     {
-        $post = Post::findOrFail($id);
-        return view('post.show', ['post' => $post]);
+        
     }
     /**
      * Show the form for editing the specified resource.
@@ -84,16 +100,7 @@ class ProduitsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validator = Validator::make(Input::all(), $this->rules);
-        if ($validator->fails()) {
-            return Response::json(array('errors' => $validator->getMessageBag()->toArray()));
-        } else {
-            $post = Post::findOrFail($id);
-            $post->title = $request->title;
-            $post->content = $request->content;
-            $post->save();
-            return response()->json($post);
-        }
+        
     }
     /**
      * Remove the specified resource from storage.
@@ -103,21 +110,14 @@ class ProduitsController extends Controller
      */
     public function destroy($id)
     {
-        $post = Post::findOrFail($id);
-        $post->delete();
-        return response()->json($post);
+        // $post = Post::findOrFail($id);
+        // $post->delete();
+        // return response()->json($post);
     }
     /**
      * Change resource status.
      *
      * @return \Illuminate\Http\Response
      */
-    public function changeStatus() 
-    {
-        $id = Input::get('id');
-        $post = Post::findOrFail($id);
-        $post->is_published = !$post->is_published;
-        $post->save();
-        return response()->json($post);
-    }
+    
 }

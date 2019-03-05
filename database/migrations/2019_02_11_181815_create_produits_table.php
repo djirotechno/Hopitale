@@ -13,18 +13,20 @@ class CreateProduitsTable extends Migration
      */
    public function up()
     {
-        Schema::create('produits', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('libelle')->unique();
-            $table->integer('stock');
-            $table->integer('prix');
-            $table->string('indication');
-            $table->string('formule');
-            $table->string('recommandation');
-            $table->unsignedInteger('categorie_id')->index();
-            $table->Integer('protocole_id')->index();
-            $table->timestamps();
-        });
+        // Schema::create('produits', function (Blueprint $table) {
+        //     $table->increments('id');
+        //     $table->string('code');
+        //     $table->date('date_fab');
+        //     $table->string('libelle')->unique();
+        //     $table->integer('stock');
+        //     $table->integer('prix');
+        //     $table->string('indication');
+        //     $table->string('formule');
+        //     $table->string('recommandation');
+        //     $table->unsignedInteger('categorie_id')->index();
+        //     $table->Integer('protocole_id')->index();
+        //     $table->timestamps();
+        // });
     }
 
     /**
@@ -34,6 +36,6 @@ class CreateProduitsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('produits');
+        // Schema::dropIfExists('produits');
     }
 }

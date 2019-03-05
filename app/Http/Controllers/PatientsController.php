@@ -7,6 +7,7 @@ use App\Patient;
 use App\Consultation;
 use App\Produit;
 use App\Protocole;
+use App\Http\Requests\FormesRequest;
 
 
 class PatientsController extends Controller
@@ -19,9 +20,13 @@ class PatientsController extends Controller
     public function index()
     {
         //
+          $idpatient = Consultation::get();
+        $patient = Patient::orderBy('id', 'desc')->paginate(5);
+        return view('patient.index',[
 
-        $patient = Patient::get();
-        return view('patient.index')->withPatient($patient);
+            'patient' => $patient,
+            'idpatient' => $idpatient,
+        ]);
     }
 
     /**
@@ -43,16 +48,8 @@ class PatientsController extends Controller
      */
     public function store(Request $request)
     {
-
-        $patient = Patient::create([
-
-            'nom'=> \request('nom'),
-            'prenom'=> \request('prenom'),
-            'age'=> \request('age'),
-            'telephone'=> \request('telephone'),
-            'adresse'=> \request('adresse'),
-            'age'=> \request('age'),
-        ]);
+       
+        $patient = Patient::create(request()->all());
         return redirect('/patient');
     }
 
@@ -66,25 +63,12 @@ class PatientsController extends Controller
     {
          $protocole = Protocole::get();
         $produit = Produit::get();
-
-
          $patient = Patient::find($id);
-
-      $consult = Patient::find($id)->consultation;
+        $consult = Patient::find($id)->consultation;
+        $lastconsult = Consultation::latest()->get();
+        
     
-    //    foreach($con as $val) {
-    //        # code...
-    //        if ($val == $id) {
-    //            # code...
-    //            $idc = Consultation::find($val);
-                
-    //        }
-
-          
-    //    }
- 
-
-    //    $patient = Consultation::find($id);
+    
 
       
              return view('patient.show',[
@@ -93,7 +77,7 @@ class PatientsController extends Controller
           'protocole' => $protocole,
           'produit' => $produit,
           'consult' => $consult,
-         
+           'lastconsult' => $lastconsult,
          
          
          

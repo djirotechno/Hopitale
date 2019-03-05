@@ -40,120 +40,7 @@
 </head>
 <body>
 
-<div class="wrapper">
-	<div class="sidebar" data-background-color="white" data-active-color="danger">
-
-    <!--
-		Tip 1: you can change the color of the sidebar's background using: data-background-color="white | black"
-		Tip 2: you can change the color of the active button using the data-active-color="primary | info | success | warning | danger"
-	-->
-
-    	<div class="sidebar-wrapper">
-            <div class="logo">
-                <a href="http://www.creative-tim.com" class="simple-text">
-                    Creative Tim
-                </a>
-            </div>
-
-            <ul class="nav">
-                <li>
-                    <a href="dashboard.html">
-                        <i class="ti-panel"></i>
-                        <p>Dashboard</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="user.html">
-                        <i class="ti-user"></i>
-                        <p>User Profile</p>
-                    </a>
-                </li>
-                <li class="active">
-                    <a href="table.html">
-                        <i class="ti-view-list-alt"></i>
-                        <p>Table List</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="typography.html">
-                        <i class="ti-text"></i>
-                        <p>Typography</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="icons.html">
-                        <i class="ti-pencil-alt2"></i>
-                        <p>Icons</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="maps.html">
-                        <i class="ti-map"></i>
-                        <p>Maps</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="notifications.html">
-                        <i class="ti-bell"></i>
-                        <p>Notifications</p>
-                    </a>
-                </li>
-				<li class="active-pro">
-                    <a href="upgrade.html">
-                        <i class="ti-export"></i>
-                        <p>Upgrade to PRO</p>
-                    </a>
-                </li>
-            </ul>
-    	</div>
-    </div>
-
-    <div class="main-panel">
-		<nav class="navbar navbar-default">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar bar1"></span>
-                        <span class="icon-bar bar2"></span>
-                        <span class="icon-bar bar3"></span>
-                    </button>
-                    <a class="navbar-brand" href="#">Table List</a>
-                </div>
-                <div class="collapse navbar-collapse">
-                    <ul class="nav navbar-nav navbar-right">
-                        <li>
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <i class="ti-panel"></i>
-								<p>Stats</p>
-                            </a>
-                        </li>
-                        <li class="dropdown">
-                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="ti-bell"></i>
-                                    <p class="notification">5</p>
-									<p>Notifications</p>
-									<b class="caret"></b>
-                              </a>
-                              <ul class="dropdown-menu">
-                                <li><a href="#">Notification 1</a></li>
-                                <li><a href="#">Notification 2</a></li>
-                                <li><a href="#">Notification 3</a></li>
-                                <li><a href="#">Notification 4</a></li>
-                                <li><a href="#">Another notification</a></li>
-                              </ul>
-                        </li>
-						<li>
-                            <a href="#">
-								<i class="ti-settings"></i>
-								<p>Settings</p>
-                            </a>
-                        </li>
-                    </ul>
-
-                </div>
-            </div>
-        </nav>
+@include('layouts.navbar')
 
 
         <div class="content">
@@ -163,6 +50,8 @@
                         <div class="card">
                             <div class="header">
                                 <input type="text" placeholder="recherche"> <i class="ti-search" autofocus></i>
+                                
+                                <button type="submit" class="btn btn-info btn-fill btn-wd pull-right add-modal">Nouveau</button>  
                             </div>
                             
 
@@ -170,9 +59,10 @@
                                 <table class="table table-striped">
                                     <thead>
                                         <th>ID</th>
-                                    	<th>Name</th>
-                                    	<th>Salary</th>
-                                    	<th>Country</th>
+                                    	<th>NOM</th>
+                                    	<th>PRENOM</th>
+                                    	<th>TELEPHONE</th>
+                                    	
                                     	<th>Action</th>
                                     </thead>
                                     <tbody>
@@ -182,10 +72,8 @@
                                         	<td>{{$item->nom}}</td>
                                         	<td>{{$item->prenom}}</td>
                                         	<td>{{$item->telephone}}</td>
-                                        	
-                                        	
                                             <td>
-                                            <a href="/patient/{{$item->id}}">Detail</a>
+                                            <a href="/patient/{{$item->id}}"><button class="btn btn-info btn-sm">Detail </button></a>
                                             </td>
                                             
                                         </tr>
@@ -193,15 +81,12 @@
                                         @endforeach
                                     </tbody>
                                 </table>
-
+                                 {{$patient->links()}}
                             </div>
+                               
+
                         </div>
                     </div>
-
-
-                   
-
-
                 </div>
             </div>
         </div>
@@ -257,5 +142,90 @@
     <!-- icheck checkboxes -->
     <script type="text/javascript" src="/asset/icheck/icheck.min.js"></script>
 
+<script>
+    $(document).on('click', '.add-modal', function() {
+            $('.modal-title').text('Add');
+            $('#addModal').modal('show');
+    });
+</script>
+     
 
+      <div id="addModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                   
+                    <div class="modal-body">
+                        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                                 <form action="{{route('patient.store')}}" method="POST">
+                                 {{ csrf_field() }}
+                                
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Sexe</label>
+                                                <select type="text" class="form-control border-input" placeholder="Sexe" name="sexe">
+                                                        <option value="F">F</option>
+                                                        <option value="M">M</option>
+                                                </select>
+                                              
+                                                {!!$errors->first('sexe','<p>:message</p>')!!}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Nom</label>
+                                                <input type="text" class="form-control border-input" placeholder="Nom" name="nom">
+                                                {!!$errors->first('nom','<p>:message</p>')!!}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Prenom</label>
+                                                <input type="text" class="form-control border-input" placeholder="Prenom" name="prenom" >
+                                                {!!$errors->first('prenom','<p>:message</p>')!!}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                       
+                                         <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Age</label>
+                                                <input type="number" class="form-control border-input" name="age" placeholder="Age">
+                                                {!!$errors->first('age','<p>:message</p>')!!}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Telephone</label>
+                                                <input type="number" class="form-control border-input" name="telephone" placeholder="telephone">
+                                                {!!$errors->first('telephone','<p>:message</p>')!!}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label>Adresse</label>
+                                                <input type="text" class="form-control border-input" name="adresse" placeholder="Adresse" >
+                                                {!!$errors->first('adresse','<p>:message</p>')!!}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="text-center">
+                                        <button type="submit" class="btn btn-info btn-fill btn-wd">OK</button>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </form>
+                            </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+
+ 
 </html>

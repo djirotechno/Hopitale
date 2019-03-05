@@ -15,15 +15,15 @@ class CreateConsultationsTable extends Migration
     {
         //
 
-        Schema::create('consultations', function (Blueprint $table) {
-            $table->increments('id');
-            $table->text('diagnostic');
-            $table->text('traitement');
-            $table->text('observation');
-            $table->string('prescription');
-            $table->unsignedInteger('patient_id')->index();
-            $table->timestamps();
-        });
+        // Schema::create('consultations', function (Blueprint $table) {
+        //     $table->increments('id');
+        //     $table->text('diagnostic');
+           
+        //     $table->text('observation');
+        //     $table->string('prescription');
+        //     $table->unsignedInteger('patient_id')->index();
+        //     $table->timestamps();
+        // });
     }
 
     /**
@@ -34,6 +34,6 @@ class CreateConsultationsTable extends Migration
     public function down()
     {
         //
-        Schema::dropIfExists('consultations');
+        // Schema::dropIfExists('consultations');
     }
 }

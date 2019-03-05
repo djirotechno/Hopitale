@@ -259,7 +259,7 @@
                                 </form>
                             </div>
                         </div>
-                        {{ $patient->links() }}
+                        {{-- {{ $patient->links() }} --}}
                     </div>
 
                     <div class="col-lg-4 col-md-5">

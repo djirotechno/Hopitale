@@ -7,6 +7,7 @@ use App\Patient;
 use App\Protocole;
 use App\Consultation;
 use App\Produit;
+use App\Http\Requests\FormesRequest;
 
 
 class ConsultationsController extends Controller
@@ -25,6 +26,8 @@ class ConsultationsController extends Controller
     {
         //
         $consult = Consultation::get();
+      
+        
         return view('consultation.index',compact('consult'));
     }
 
@@ -48,14 +51,16 @@ class ConsultationsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request,$id)
+    public function store(Request $request)
     {
         $consult = Consultation::create([
             'patient_id' => request('patient_id'),
             'observation' => request('observation'),
-            'diagnostic' => request('diagnostique'),
-            'prescription' => request('prescription'), 
+            'diagnostic' => request('diagnostic'),
+            'prescription' => request('medicament'), 
+            'prescription' => request('protocole'), 
              
+           
         ]);
 
          return back();

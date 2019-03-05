@@ -1,0 +1,20 @@
+.header-info {
+  text-align: center;
+}
+
+.section-input {
+  text-align: center;
+}
+
+.input-field-container {
+  margin-bottom: 15px;
+}
+
+.input-field-container #input-username {
+  text-align: center;
+  font-size: 20px;
+}
+
+.movies {
+  float: none;
+}

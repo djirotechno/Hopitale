@@ -1,21 +1,17 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
+	<meta charset="utf-8" />
+	<link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
+	<link rel="icon" type="image/png" sizes="96x96" href="assets/img/favicon.png">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-    <!-- Favicon -->
-    <link rel="shortcut icon" href="{{ asset('images/favicon.jpg') }}">
+	<title>Paper Dashboard by Creative Tim</title>
 
-    <!-- CSFR token for ajax call -->
-    <meta name="_token" content="{{ csrf_token() }}"/>
+	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <meta name="viewport" content="width=device-width" />
 
-    <title>Manage Posts</title>
-    
-    <!-- Bootstrap CSS -->
+
     <link rel="stylesheet" href="/asset/css/bootstrap.min.css">
     <link rel="stylesheet" href="/asset/css/animate.min.css">
     <link rel="stylesheet" href="/asset/css/paper-dashboard.css">
@@ -40,318 +36,84 @@
     <link href='https://fonts.googleapis.com/css?family=Muli:400,300' rel='stylesheet' type='text/css'>
     <link href="/asset/css/themify-icons.css" rel="stylesheet">
 
-    <style>
-        .panel-heading {
-            padding: 0;
-        }
-        .panel-heading ul {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-        }
-        .panel-heading li {
-            float: left;
-            border-right:1px solid #bbb;
-            display: block;
-            padding: 10px 10px;
-            text-align: center;
-        }
-        .panel-heading li:last-child:hover {
-            background-color: #ccc;
-        }
-        .panel-heading li:last-child {
-            border-right: none;
-        }
-        .panel-heading li a:hover {
-            text-decoration: none;
-        }
-
-        .panel{
-            margin-top: 10px;
-        }
-       
-    </style>
 
 </head>
-
 <body>
-<div class="container">
-    <div class="row">
-        <div class="main-panel pull-right">
-            <nav class="navbar navbar-default">
-                    <div class="container-fluid">
-                        <div class="navbar-header">
-                            <button type="button" class="navbar-toggle">
-                                <span class="sr-only">Toggle navigation</span>
-                                <span class="icon-bar bar1"></span>
-                                <span class="icon-bar bar2"></span>
-                                <span class="icon-bar bar3"></span>
-                            </button>
-                            <a class="navbar-brand" href="#">Table List</a>
-                        </div>
-                        <div class="collapse navbar-collapse">
-                            <ul class="nav navbar-nav navbar-left">
-                                <li>
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                        <i class="ti-panel"></i>
-                                        <p>Stats</p>
-                                    </a>
-                                </li>
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                            <i class="ti-bell"></i>
-                                            <p class="notification">5</p>
-                                            <p>Notifications</p>
-                                            <b class="caret"></b>
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="#">Notification 1</a></li>
-                                        <li><a href="#">Notification 2</a></li>
-                                        <li><a href="#">Notification 3</a></li>
-                                        <li><a href="#">Notification 4</a></li>
-                                        <li><a href="#">Another notification</a></li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="ti-settings"></i>
-                                        <p>Settings</p>
-                                    </a>
-                                </li>
-                            </ul>
-                                <ul class="nav navbar-nav navbar-right">
+
+@include('layouts.navbar')
+
+
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="header">
+                                <input type="text" placeholder="recherche"> <i class="ti-search" autofocus></i>
                                 
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                            <i class="ti-bell"></i>
-                                            <p class="notification">5</p>
-                                            <p>Notifications</p>
-                                            <b class="caret"></b>
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="#">Notification 1</a></li>
-                                        <li><a href="#">Notification 2</a></li>
-                                        <li><a href="#">Notification 3</a></li>
-                                        <li><a href="#">Notification 4</a></li>
-                                        <li><a href="#">Another notification</a></li>
-                                    </ul>
-                                </li>
-                                
-                            </ul>
-                        </div>
-                    </div>
-            </nav>
-        </div>
-    </div>
-    <div class="row">
-            <div class="col-md-8 col-lg-10 col-md-offset-2">
-           
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <ul>
-                        <li><i class="fa fa-file-text-o"></i> All the current Posts</li>
-                        <a href="#" class="add-modal"><li>Add a Post</li></a>
-                    </ul>
-                </div>
-            
-                <div class="panel-body">
-                        <table class="table table-striped table-bordered table-hover" id="postTable" style="visibility:;">
-                            <thead>
-                                <tr>
-                                    <th valign="middle">#</th>
-                                    <th>Title</th>
-                                    
-                                   
-                                    <th>Actions</th>
-                                </tr>
-                                {{ csrf_field() }}
-                            </thead>
-                            <tbody>
-                                @foreach($posts as $indexKey => $post)
-                                    <tr class="item{{$post->id}} @if($post->is_published) warning @endif">
-                                        <td class="col1">{{ $indexKey+1 }}</td>
-                                        <td>{{$post->libelle}}</td>
+                                <button type="submit" class="btn btn-info btn-fill btn-wd pull-right add-modal">Nouveau</button>  
+                            </div>
+                            
+
+                            <div class="content table-responsive table-full-width">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <th>CODE</th>
+                                        <th>NOM</th>
+                                    	<th>INDICATION</th>
+                                    	
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($produit as $item)
+                                            <tr>
+                                            <td>
+                                              <img src="data:image/png;base64,{{DNS1D::getBarcodePNG($item->code, 'C39')}}" alt="barcode" />
+                                           </td>
+                                           <td>
+                                               {{$item->libelle}}
+                                           </td>
+                                           <td>
+                                               {{$item->indication}}
+                                           </td>
+                                           <td>
+                                               <button class="show-modal btn btn-success btn-sm pull-right" data-nom="{{$item->libelle}}" data-formule="{{$item->formule}}" data-indication="{{$item->indication}}" data-prix="{{$item->prix}}" data-stock="{{$item->stock}}" data-categorie="
+                                                 {{$item->categorie->categorie_nom}}">Details
+                                        </tr>
                                        
+                                        @endforeach
                                        
-                                        <td>
-                                            <button class="show-modal btn btn-success" data-id="{{$post->id}}" data-title="{{$post->libelle}}" data-content="{{$post->content}}">
-                                            <span class="glyphicon glyphicon-eye-open"></span> Show</button>
-                                            <button class="edit-modal btn btn-info" data-id="{{$post->id}}" data-title="{{$post->title}}" data-content="{{$post->content}}">
-                                            <span class="glyphicon glyphicon-edit"></span> Edit</button>
-                                            <button class="delete-modal btn btn-danger" data-id="{{$post->id}}" data-title="{{$post->title}}" data-content="{{$post->content}}">
-                                            <span class="glyphicon glyphicon-trash"></span> Delete</button>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                </div><!-- /.panel-body -->
-            </div><!-- /.panel panel-default -->
-        </div><!-- /.col-md-8 -->
+                                    </tbody>
+                                </table>
+                               
+                               {{$produit->links()}}
+
+                            
+                            </div>
+                             
+                        </div>
+                    </div>
+
+
+                   
+
+
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <div class="container-fluid">
+                
+				
+            </div>
+        </footer>
+
+
     </div>
-        <!-- Modal form to add a post -->
-        <div id="addModal" class="modal fade" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title"></h4>
-                    </div>
-                    <div class="modal-body">
-                        <form class="form-horizontal" role="form">
-                            <div class="form-group">
-                                <label class="control-label col-sm-2" for="title">Title:</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="title_add" autofocus>
-                                    <small>Min: 2, Max: 32, only text</small>
-                                    <p class="errorTitle text-center alert alert-danger hidden"></p>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-sm-2" for="content">Content:</label>
-                                <div class="col-sm-10">
-                                    <textarea class="form-control" id="content_add" cols="40" rows="5"></textarea>
-                                    <small>Min: 2, Max: 128, only text</small>
-                                    <p class="errorContent text-center alert alert-danger hidden"></p>
-                                </div>
-                            </div>
-                        </form>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-success add" data-dismiss="modal">
-                                <span id="" class='glyphicon glyphicon-check'></span> Add
-                            </button>
-                            <button type="button" class="btn btn-warning" data-dismiss="modal">
-                                <span class='glyphicon glyphicon-remove'></span> Close
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Modal form to show a post -->
-        <div id="showModal" class="modal fade" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title"></h4>
-                    </div>
-                    <div class="modal-body">
-                        <form class="form-horizontal" role="form">
-                            <div class="form-group">
-                                <label class="control-label col-sm-2" for="id">ID:</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="id_show" disabled>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-sm-2" for="title">Title:</label>
-                                <div class="col-sm-10">
-                                    <input type="name" class="form-control" id="title_show" disabled>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-sm-2" for="content">Content:</label>
-                                <div class="col-sm-10">
-                                    <textarea class="form-control" id="content_show" cols="40" rows="5" disabled></textarea>
-                                </div>
-                            </div>
-                        </form>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-warning" data-dismiss="modal">
-                                <span class='glyphicon glyphicon-remove'></span> Close
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Modal form to edit a form -->
-        <div id="editModal" class="modal fade" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title"></h4>
-                    </div>
-                    <div class="modal-body">
-                        <form class="form-horizontal" role="form">
-                            <div class="form-group">
-                                <label class="control-label col-sm-2" for="id">ID:</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="id_edit" disabled>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-sm-2" for="title">Title:</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="title_edit" autofocus>
-                                    <p class="errorTitle text-center alert alert-danger hidden"></p>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-sm-2" for="content">Content:</label>
-                                <div class="col-sm-10">
-                                    <textarea class="form-control" id="content_edit" cols="40" rows="5"></textarea>
-                                    <p class="errorContent text-center alert alert-danger hidden"></p>
-                                </div>
-                            </div>
-                        </form>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-primary edit" data-dismiss="modal">
-                                <span class='glyphicon glyphicon-check'></span> Edit
-                            </button>
-                            <button type="button" class="btn btn-warning" data-dismiss="modal">
-                                <span class='glyphicon glyphicon-remove'></span> Close
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Modal form to delete a form -->
-        <div id="deleteModal" class="modal fade" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title"></h4>
-                    </div>
-                    <div class="modal-body">
-                        <h3 class="text-center">Are you sure you want to delete the following post?</h3>
-                        <br />
-                        <form class="form-horizontal" role="form">
-                            <div class="form-group">
-                                <label class="control-label col-sm-2" for="id">ID:</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="id_delete" disabled>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-sm-2" for="title">Title:</label>
-                                <div class="col-sm-10">
-                                    <input type="name" class="form-control" id="title_delete" disabled>
-                                </div>
-                            </div>
-                        </form>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-danger delete" data-dismiss="modal">
-                                <span id="" class='glyphicon glyphicon-trash'></span> Delete
-                            </button>
-                            <button type="button" class="btn btn-warning" data-dismiss="modal">
-                                <span class='glyphicon glyphicon-remove'></span> Close
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
 </div>
+
+
+</body>
 
     <!-- jQuery -->
     {{-- <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script> --}}
@@ -369,180 +131,185 @@
     <!-- icheck checkboxes -->
     <script type="text/javascript" src="/asset/icheck/icheck.min.js"></script>
 
-    <!-- Delay table load until everything else is loaded -->
-    <script>
-        $(window).load(function(){
-            $('#postTable').removeAttr('style');
-        })
-    </script>
-
-    
-
-    <!-- AJAX CRUD operations -->
-    <script type="text/javascript">
-        // add a new post
-        $(document).on('click', '.add-modal', function() {
+<script>
+    $(document).on('click', '.add-modal', function() {
             $('.modal-title').text('Add');
             $('#addModal').modal('show');
-        });
-        $('.modal-footer').on('click', '.add', function() {
-            $.ajax({
-                type:'POST',
-                url:'/produit/store',
-                data: {
-                    '_token': $('input[name=_token]').val(),
-                    'libelle': $('#title_add').val(),
-                    'content': $('#content_add').val()
-                },
-                success: function(data) {
-                    $('.errorTitle').addClass('hidden');
-                    $('.errorContent').addClass('hidden');
-                    if ((data.errors)) {
-                        setTimeout(function () {
-                            $('#addModal').modal('show');
-                            toastr.error('Validation error!', 'Error Alert', {timeOut: 5000});
-                        }, 500);
-                        if (data.errors.title) {
-                            $('.errorTitle').removeClass('hidden');
-                            $('.errorTitle').text(data.errors.title);
-                        }
-                        if (data.errors.content) {
-                            $('.errorContent').removeClass('hidden');
-                            $('.errorContent').text(data.errors.content);
-                        }
-                    } else {
-                        toastr.success('Successfully added Post!', 'Success Alert', {timeOut: 5000});
-                        $('#postTable').prepend("<tr class='item" + data.id + "'><td class='col1'>" + data.id + "</td><td>" + data.libelle + "</td><td>" + data.content + "</td><td class='text-center'><input type='checkbox' class='new_published' data-id='" + data.id + " '></td><td>Just now!</td><td><button class='show-modal btn btn-success' data-id='" + data.id + "' data-title='" + data.title + "' data-content='" + data.content + "'><span class='glyphicon glyphicon-eye-open'></span> Show</button> <button class='edit-modal btn btn-info' data-id='" + data.id + "' data-title='" + data.title + "' data-content='" + data.content + "'><span class='glyphicon glyphicon-edit'></span> Edit</button> <button class='delete-modal btn btn-danger' data-id='" + data.id + "' data-title='" + data.title + "' data-content='" + data.content + "'><span class='glyphicon glyphicon-trash'></span> Delete</button></td></tr>");
-                        
-                        $('.new_published').on('ifToggled', function(event){
-                            $(this).closest('tr').toggleClass('warning');
-                        });
-                        $('.new_published').on('ifChanged', function(event){
-                            id = $(this).data('id');
-                            $.ajax({
-                                type: 'POST',
-                                url: "{{ URL::route('changeStatus') }}",
-                                data: {
-                                    '_token': $('input[name=_token]').val(),
-                                    'id': id
-                                },
-                                success: function(data) {
-                                    // empty
-                                },
-                            });
-                        });
-                        $('.col1').each(function (index) {
-                            $(this).html(index+1);
-                        });
-                    }
-                },
-            });
-        });
-        // Show a post
-        $(document).on('click', '.show-modal', function() {
-            $('.modal-title').text('Show');
-            $('#id_show').val($(this).data('id'));
-            $('#title_show').val($(this).data('title'));
-            $('#content_show').val($(this).data('content'));
+    });
+
+     $(document).on('click', '.show-modal', function() {
+            $('#nom_show').val($(this).data('nom'));
+            $('#formule_show').val($(this).data('formule'));
+            $('#indication_show').val($(this).data('indication'));
+            $('#prix_show').val($(this).data('prix'));
+            $('#stock_show').val($(this).data('stock'));
+            $('#categorie_show').val($(this).data('categorie'));
+
+            
             $('#showModal').modal('show');
         });
-        // Edit a post
-        $(document).on('click', '.edit-modal', function() {
-            $('.modal-title').text('Edit');
-            $('#id_edit').val($(this).data('id'));
-            $('#title_edit').val($(this).data('title'));
-            $('#content_edit').val($(this).data('content'));
-            id = $('#id_edit').val();
-            $('#editModal').modal('show');
-        });
-        $('.modal-footer').on('click', '.edit', function() {
-            $.ajax({
-                type: 'PUT',
-                url: 'posts/' + id,
-                data: {
-                    '_token': $('input[name=_token]').val(),
-                    'id': $("#id_edit").val(),
-                    'title': $('#title_edit').val(),
-                    'content': $('#content_edit').val()
-                },
-                success: function(data) {
-                    $('.errorTitle').addClass('hidden');
-                    $('.errorContent').addClass('hidden');
-                    if ((data.errors)) {
-                        setTimeout(function () {
-                            $('#editModal').modal('show');
-                            toastr.error('Validation error!', 'Error Alert', {timeOut: 5000});
-                        }, 500);
-                        if (data.errors.title) {
-                            $('.errorTitle').removeClass('hidden');
-                            $('.errorTitle').text(data.errors.title);
-                        }
-                        if (data.errors.content) {
-                            $('.errorContent').removeClass('hidden');
-                            $('.errorContent').text(data.errors.content);
-                        }
-                    } else {
-                        toastr.success('Successfully updated Post!', 'Success Alert', {timeOut: 5000});
-                        $('.item' + data.id).replaceWith("<tr class='item" + data.id + "'><td class='col1'>" + data.id + "</td><td>" + data.title + "</td><td>" + data.content + "</td><td class='text-center'><input type='checkbox' class='edit_published' data-id='" + data.id + "'></td><td>Right now</td><td><button class='show-modal btn btn-success' data-id='" + data.id + "' data-title='" + data.title + "' data-content='" + data.content + "'><span class='glyphicon glyphicon-eye-open'></span> Show</button> <button class='edit-modal btn btn-info' data-id='" + data.id + "' data-title='" + data.title + "' data-content='" + data.content + "'><span class='glyphicon glyphicon-edit'></span> Edit</button> <button class='delete-modal btn btn-danger' data-id='" + data.id + "' data-title='" + data.title + "' data-content='" + data.content + "'><span class='glyphicon glyphicon-trash'></span> Delete</button></td></tr>");
-                        if (data.is_published) {
-                            $('.edit_published').prop('checked', true);
-                            $('.edit_published').closest('tr').addClass('warning');
-                        }
-                        $('.edit_published').iCheck({
-                            checkboxClass: 'icheckbox_square-yellow',
-                            radioClass: 'iradio_square-yellow',
-                            increaseArea: '20%'
-                        });
-                        $('.edit_published').on('ifToggled', function(event) {
-                            $(this).closest('tr').toggleClass('warning');
-                        });
-                        $('.edit_published').on('ifChanged', function(event){
-                            id = $(this).data('id');
-                            $.ajax({
-                                type: 'POST',
-                                url: "{{ URL::route('changeStatus') }}",
-                                data: {
-                                    '_token': $('input[name=_token]').val(),
-                                    'id': id
-                                },
-                                success: function(data) {
-                                    // empty
-                                },
-                            });
-                        });
-                        $('.col1').each(function (index) {
-                            $(this).html(index+1);
-                        });
-                    }
-                }
-            });
-        });
-        
-        // delete a post
-        $(document).on('click', '.delete-modal', function() {
-            $('.modal-title').text('Delete');
-            $('#id_delete').val($(this).data('id'));
-            $('#title_delete').val($(this).data('title'));
-            $('#deleteModal').modal('show');
-            id = $('#id_delete').val();
-        });
-        $('.modal-footer').on('click', '.delete', function() {
-            $.ajax({
-                type: 'DELETE',
-                url: 'posts/' + id,
-                data: {
-                    '_token': $('input[name=_token]').val(),
-                },
-                success: function(data) {
-                    toastr.success('Successfully deleted Post!', 'Success Alert', {timeOut: 5000});
-                    $('.item' + data['id']).remove();
-                    $('.col1').each(function (index) {
-                        $(this).html(index+1);
-                    });
-                }
-            });
-        });
-    </script>
+</script>
+        <div id="showModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    
+                    <div class="modal-body">
+                        <form class="form-horizontal" role="form">
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="id">Nom:</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="nom_show" disabled>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="content">Categorie:</label>
+                                <div class="col-sm-10">
+                                     <input class="form-control" id="categorie_show" cols="40" rows="5" disabled>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="title">Formule:</label>
+                                <div class="col-sm-10">
+                                    <input type="name" class="form-control" id="formule_show" disabled>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="content">Indication:</label>
+                                <div class="col-sm-10">
+                                    <textarea class="form-control" id="indication_show" cols="40" rows="5" disabled></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="content">Prix:</label>
+                                <div class="col-sm-10">
+                                   <input class="form-control" id="prix_show" cols="40" rows="5" disabled>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="content">stock:</label>
+                                <div class="col-sm-10">
+                                    <input class="form-control" id="stock_show" cols="40" rows="5" disabled>
+                                </div>
+                            </div>
+                        </form>
+                        
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
 
-</body>
+
+      <div id="addModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                   
+                    <div class="modal-body">
+                        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                                 <form action="{{route('produit.store')}}" method="POST">
+                                 {{ csrf_field() }}
+                                
+                                    <div class="row">
+   
+                                            <input type="text" value="isbn13"   name="code" hidden>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label>Categorie</label>
+                                                <select name="categorie_id" id="categorie_id" class="form-control border-input">
+                                                @foreach ($categorie as $item)
+                                               
+                                                <option value="{{$item->id}}" >{{$item->categorie_nom}}</option>
+                                                  @endforeach
+                                                </select>
+                                              
+                                                {!!$errors->first('prenom','<p>:message</p>')!!}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Protocole</label>
+                                                <select name="protocole_id" id="protocole_id" class="form-control border-input">
+                                                @foreach ($protocole as $item)
+                                                <option value="0" class="active" >Protocole</option>
+                                                <option value="{{$item->id}}" >{{$item->protocole_nom}}</option>
+                                                  @endforeach
+                                                </select>
+                                              
+                                                {!!$errors->first('nom','<p>:message</p>')!!}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Libelle</label>
+                                                <input type="text" class="form-control border-input"  name="libelle">
+                                                {!!$errors->first('nom','<p>:message</p>')!!}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Recommandation</label>
+                                                <input type="text" class="form-control border-input"  name="recommandation" >
+                                                {!!$errors->first('prenom','<p>:message</p>')!!}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Formule</label>
+                                                <input type="text" class="form-control border-input" placeholder="Nom" name="formule">
+                                                {!!$errors->first('nom','<p>:message</p>')!!}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>indication</label>
+                                                <input type="text" class="form-control border-input"  name="indication" >
+                                                {!!$errors->first('prenom','<p>:message</p>')!!}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Date fabrication</label>
+                                                <input type="date" class="form-control border-input"  name="date_fab" >
+                                                {!!$errors->first('date_fab','<p>:message</p>')!!}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Qantitee</label>
+                                                <input type="text" class="form-control border-input"  name="stock">
+                                                {!!$errors->first('nom','<p>:message</p>')!!}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Prix</label>
+                                                <input type="text" class="form-control border-input"  name="prix" >
+                                                {!!$errors->first('prenom','<p>:message</p>')!!}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+
+                                    <div class="text-center">
+                                        <button type="submit" class="btn btn-info btn-fill btn-wd">OK</button>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </form>
+                            </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+
+ 
 </html>
