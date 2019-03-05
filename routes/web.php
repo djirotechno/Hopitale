@@ -14,6 +14,7 @@
 Route::get('post','PostsController@index');
 
  Route::get('/pharma','PharmaciesController@index')->name('pharma');
+ Route::get('/caisse','PharmaciesController@caisse')->name('caisse');
 
 
 Route::get('logout','Auth\LogoutController@logout')->name('logout');

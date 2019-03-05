@@ -24,12 +24,35 @@
                         <p>Medicaments</p>
                     </a>
                 </li>
-                <li>
-                <a href="{{route('pharma')}}">
-                        <i class="ti-text"></i>
-                        <p>Pharmacie</p>
-                    </a>
-                </li>
+               
+                        
+                        
+                        
+                         <li class="dropdown">
+                         <a href="{{route('pharma')}}"  data-toggle="dropdown">
+                                    <i class="ti-text"></i> 
+                                   <p>Pharmacie</p>
+                                  
+									
+									<b class="caret"></b>
+                              </a>
+                            <ul class="dropdown-menu">
+                                <li >
+                                        <li>
+                                        <a href="{{route('caisse')}}">                                            
+                                                Caisse
+                                            </a>
+                                        </li>
+                                        
+                                        
+                                
+                                </li>
+                        
+                   
+                                
+                            </ul>
+                        </li>
+               
                 <li>
                 <a href="{{route('dash')}}">
                         <i class="ti-text"></i>
@@ -94,35 +117,27 @@ document.write(datetime);
 									
 									<b class="caret"></b>
                               </a>
-                              <ul class="dropdown-menu">
+                            <ul class="dropdown-menu">
+                                <li >
+                                        <li>
+                                        <a href="{{route('logout')}}">                                            
+                                                Deconnectez
+                                            </a>
+                                        </li>
+                                        
+                                        <li>
+                                        <a href="{{route('dash.patient')}}">                                            
+                                            Paramettre
+                                            </a>
+
+                                        
+                                        </li>
                                 
-                        <!-- Authentication Links -->
+                                </li>
                         
-                            <li >
-                               
-
-                               
-                                    <li>
-                                    <a href="{{route('logout')}}">                                            
-                                            Deconnectez
-                                        </a>
-
-                                       
-                                    </li>
-                                    
-                                    <li>
-                                    <a href="{{route('dash.patient')}}">                                            
-                                           Paramettre
-                                        </a>
-
-                                       
-                                    </li>
-                               
-                            </li>
-                       
                    
                                 
-                              </ul>
+                            </ul>
                         </li>
 						
                     </ul>

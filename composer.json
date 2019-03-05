@@ -11,6 +11,7 @@
         "laravel/scout": "^7.1",
         "laravel/tinker": "~1.0",
         "milon/barcode": "^5.3",
+        "snapappointments/bootstrap-select": "^1.13",
         "yajra/laravel-datatables-oracle": "~8.0"
     },
     "require-dev": {

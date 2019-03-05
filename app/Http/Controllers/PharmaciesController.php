@@ -25,6 +25,8 @@ class PharmaciesController extends Controller
         ]);
     }
 
+
+
     public function protocole(){
         $protocole = Protocole::paginate(10);
 
@@ -33,6 +35,13 @@ class PharmaciesController extends Controller
             'protocole' => $protocole
         ]);
 
+    }
+
+    public function caisse(){
+
+        $caisse = Cart::orderBy('created_at','desc')->get();
+
+        return view('pharma.caisse',['caisse' => $caisse]);
     }
 
     public function addtocart(Request $request)
@@ -45,15 +54,11 @@ class PharmaciesController extends Controller
                 'produit_prix' => request('produit_prix'),
                  'qty' => request('qty'),
     			'total' => request('produit_prix') * request('qty'),
-               
-                
-                
                 ]);
-
-
     		return back();
-    		
     }
+
+    
     /**
      * Show the form for creating a new resource.
      *
@@ -85,7 +90,7 @@ class PharmaciesController extends Controller
     {
         //
 
-        Cart::
+        
     }
 
     /**
