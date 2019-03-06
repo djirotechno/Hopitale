@@ -179,6 +179,7 @@ return [
         Milon\Barcode\BarcodeServiceProvider::class,
         Yajra\DataTables\DataTablesServiceProvider::class,
         Gloudemans\Shoppingcart\ShoppingcartServiceProvider::class,
+        Laravel\Scout\ScoutServiceProvider::class,
 
        
 

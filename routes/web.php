@@ -12,6 +12,7 @@
 */
 
 Route::get('post','PostsController@index');
+Route::get('data','ProtocolesController@data');
 
  Route::get('/pharma','PharmaciesController@index')->name('pharma');
  Route::get('/caisse','PharmaciesController@caisse')->name('caisse');

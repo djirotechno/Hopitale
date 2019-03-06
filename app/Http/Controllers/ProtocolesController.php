@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Protocole;
 use App\Produit;
+use Yajra\Datatables\Datatables;
 
 class ProtocolesController extends Controller
 {
@@ -13,13 +14,13 @@ class ProtocolesController extends Controller
 
     public function index(){
 
-       $proto = Protocole::paginate(5);
+       $protocole = Protocole::paginate(5);
 
        $produit = Produit::get();
 
         return view('protocole.index',[
             
-            'proto' => $proto,
+            'protocole' => $protocole,
             'produit' => $produit,
             
         ]);

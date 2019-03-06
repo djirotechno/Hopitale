@@ -7,6 +7,8 @@ use App\Produit;
 use App\Cart;
 
 
+
+
 class PharmaciesController extends Controller
 {
     /**
@@ -14,16 +16,19 @@ class PharmaciesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    
+        // //
+
+       public function index()
     {
-        //
+       
         $produit = Produit::paginate(10);
 
         return view('pharma.index',[
 
             'produit' => $produit
         ]);
-    }
+        }
 
 
 

@@ -42,28 +42,146 @@
 </head>
 <body>
     @include('layouts.dash')
-
-
-@foreach ($caisse as $item)
-     <div class="panel-group">
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h4 class="panel-title">
-        <a data-toggle="collapse" href="#collapse1">{{$item->created_at}}</a>
-      </h4>
+    <div class="container-fluid">
+	                <div class="row">
+	                    <div class="col-lg-3 col-sm-6">
+	                        <div class="card">
+	                            <div class="content">
+	                                <div class="row">
+	                                    <div class="col-xs-5">
+	                                        <div class="icon-big icon-warning text-center">
+	                                            <i class="ti-server"></i>
+	                                        </div>
+	                                    </div>
+	                                    <div class="col-xs-7">
+                                        <p>Vente du mois</p>
+	                                        <div class="numbers">
+	                                          
+	                                        </div>
+	                                    </div>
+	                                </div>
+	                                <div class="footer">
+	                                    <hr />
+	                                    <div class="stats">
+	                                       <i class="ti-reload"></i> 
+	                                    </div>
+	                                </div>
+	                            </div>
+	                        </div>
+	                    </div>
+	                    <div class="col-lg-3 col-sm-6">
+	                        <div class="card">
+	                            <div class="content">
+	                                <div class="row">
+	                                    <div class="col-xs-5">
+	                                        <div class="icon-big icon-warning text-center">
+	                                            <i class="ti-stat"></i>
+	                                        </div>
+	                                    </div>
+	                                    <div class="col-xs-7">
+                                        <p>situation stock</p>
+	                                        <div class="numbers">
+	                                          
+	                                        </div>
+	                                    </div>
+	                                </div>
+	                                <div class="footer">
+	                                    <hr />
+	                                    <div class="stats">
+	                                        <i class="ti-reload"></i> 
+	                                    </div>
+	                                </div>
+	                            </div>
+	                        </div>
+	                    </div>
+	                    <div class="col-lg-3 col-sm-6">
+	                        <div class="card">
+	                            <div class="content">
+	                                <div class="row">
+	                                    <div class="col-xs-5">
+	                                        <div class="icon-big icon-danger text-center">
+	                                            <i class="ti-wallet"></i>
+	                                        </div>
+	                                    </div>
+	                                    <div class="col-xs-7">
+	                                        <div class="numbers">
+	                                            <p>Total Vente</p>
+	                                           <span>{{\App\Cart::sum('total')}}</span> 
+	                                            
+	                                        </div>
+	                                    </div>
+	                                </div>
+	                                <div class="footer">
+	                                    <hr />
+	                                    <div class="stats">
+	                                       <i class="ti-reload"></i> 
+	                                    </div>
+	                                </div>
+	                            </div>
+	                        </div>
+	                    </div>
+	                    <div class="col-lg-3 col-sm-6">
+	                        <div class="card">
+	                            <div class="content">
+	                                <div class="row">
+	                                    <div class="col-xs-7">
+	                                        <div class="numbers">
+	                                            <p>Vente</p>
+												 {{\App\Cart::count()}}
+	                                        </div>
+										</div>
+	                                </div>
+										<hr />
+	                                
+	                            </div>
+	                        </div>
+	                    </div>
+                  </div>
     </div>
-    <div id="collapse1" class="panel-collapse collapse">
-      <ul class="list-group">
-      <li class="list-group-item">{{$item->produit_nom}}</li>
-      <li class="list-group-item">{{$item->qty}}</li>
-        <li class="list-group-item">{{$item->total}}</li>
-      </ul>
-      <div class="panel-footer">Footer</div>
-    </div>
-  </div>
-</div> 
-@endforeach
+<div class="content table-responsive table-full-width">
+                                <table class="table table-striped">
+                                    <thead>
+                                       
+                                        <th>Date</th>
+                                    	<th>Medicament</th>
+                                    	
+                                    	<th>PRIX</th>
+                                    	<th>Qty</th>
+                                    	<th>Somme</th>
+                                    	
+                                    </thead>
+                                    <tbody>
+                                    
+                                        @foreach ($caisse as $item)
+                                            <tr>
+                                           
+                                           <td>
+                                               {{$item->created_at}}
+                                           </td>
+                                           <td>
+                                               {{$item->produit_nom}}
+                                           </td> 
+                                           <td>
+                                               {{$item->prix}}
+                                           </td> 
+                                           <td>
+                                               {{$item->qty}}
+                                           </td> 
+                                          
+                                           <td>
+                                               {{$item->total}}
+                                           </td> 
+                                        </tr>
+                                       
+                                        @endforeach
+                                       
+                                    </tbody>
+                                </table>
+                               
+                
 
+                            
+                            </div>
 
 </body>
 <script src="/asset/js/jquery.min.js"></script>
