@@ -1,17 +1,16 @@
-# AJAX CRUD for Laravel 5.4
+# APP Hopital Traditionnelle  Keur Massar (Laravel 5.4)
 
-Asynchronous actions on a Laravel resource controller. For step by step instructions, visit my [blog post](http://www.jmkleger.com/post/ajax-crud-for-laravel-5-4).
 
 ## Installation
 
 Clone the repo
 ```
-git clone https://github.com/jeanquark/ajax-crud.git
+git clone https://github.com/djirotechno/Hopitale.git
 ```
 
 Move to the newly created folder and install all dependencies:
 ```
-cd ajax-crud
+cd Hopital
 composer install
 ```
 
@@ -30,25 +29,7 @@ Finally, generate the application key
 php artisan key:generate
 ```
 
-Open your favorite browser and visit the newly created app.
 
-## Features
-1. Create a new post
-2. Show a post
-3. Edit a post
-4. Delete a post
-5. Mark a post as published/unpublished
-
-## Screenshots
-
-Homepage:
-![homepage](https://github.com/jeanquark/ajax-crud/raw/master/public/homepage.png "Homepage")
-
-Table:
-![table](https://github.com/jeanquark/ajax-crud/raw/master/public/table.png "table")
-
-Create a new post:
-![create](https://github.com/jeanquark/ajax-crud/raw/master/public/add.png "add")
 
 ## Licence
 
