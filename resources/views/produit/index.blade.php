@@ -10,7 +10,9 @@
 
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />
-
+    <link rel="stylesheet" href="/dataTables/css/dataTables.bootstrap.min.css">
+    {{-- Datatable jquery --}}
+    <link rel="/dataTables/css/jquery.dataTables.min.css">
 
     <link rel="stylesheet" href="/asset/css/bootstrap.min.css">
     <link rel="stylesheet" href="/asset/css/animate.min.css">
@@ -49,58 +51,44 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="header">
-                                <input type="text" placeholder="recherche"> <i class="ti-search" autofocus></i>
-                                
-                                <button type="submit" class="btn btn-info btn-fill btn-wd pull-right add-modal">Nouveau</button>  
+                                <button type="submit" class="btn btn-info btn-fill btn-wd  add-modal center">Nouveau</button>  
                             </div>
                             
 
                             <div class="content table-responsive table-full-width">
-                                <table class="table table-striped">
-                                    <thead>
-                                        <th>CODE</th>
-                                        <th>NOM</th>
-                                    	<th>INDICATION</th>
-                                    	
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($produit as $item)
-                                            <tr>
-                                            <td>
-                                              <img src="data:image/png;base64,{{DNS1D::getBarcodePNG($item->code, 'C39')}}" alt="barcode" />
-                                           </td>
-                                           <td>
-                                               {{$item->libelle}}
-                                           </td>
-                                           <td>
-                                               {{$item->indication}}
-                                           </td>
-                                           <td>
-                                               <button class="show-modal btn btn-success btn-sm pull-right" data-nom="{{$item->libelle}}" data-formule="{{$item->formule}}" data-indication="{{$item->indication}}" data-prix="{{$item->prix}}" data-stock="{{$item->stock}}" data-categorie="
+								<table id="example" class="table table-striped" >
+									<thead>
+									<tr>
+										<th>Id</th>
+										<th>Nom</th>
+										<th>Description</th>
+										<th>Detail</th>
+										
+									</tr>
+									</thead>
+									<tbody>
+										@foreach ($produit as $item)
+											<tr>
+											<td>{{$item->id}}</td>
+											<td>{{$item->libelle}}</td>
+											<td>{{$item->indication}}</td>
+											<td>
+											<button class="show-modal btn btn-success btn-sm pull-right" data-nom="{{$item->libelle}}" data-formule="{{$item->formule}}" data-indication="{{$item->indication}}" data-prix="{{$item->prix}}" data-stock="{{$item->stock}}" data-categorie="
                                                  {{$item->categorie->categorie_nom}}">Details
-                                        </tr>
-                                       
-                                        @endforeach
-                                       
-                                    </tbody>
-                                </table>
-                               
-                               {{$produit->links()}}
-
-                            
+											</td>
+											
+										</tr>
+										@endforeach
+										
+									</tbody>                        
+								</table>
                             </div>
                              
                         </div>
                     </div>
-
-
-                   
-
-
                 </div>
             </div>
         </div>
-
         <footer class="footer">
             <div class="container-fluid">
                 
@@ -114,24 +102,30 @@
 
 
 </body>
-
-    <!-- jQuery -->
+<!-- jQuery -->
     {{-- <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script> --}}
-    <script src="/asset/js/jquery.min.js"></script>
-    {{-- <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script> --}}
+    {{-- <script src="/asset/js/jquery.min.js"></script> --}}
+    <script src="/dataTables/js/jquery-3.3.1.min.js" ></script>
+      <script src="/dataTables/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="/dataTables/js/jquery.dataTables.min.js"></script>
+
+
 
     <!-- Bootstrap JavaScript -->
     <script src="/asset/js/bootstrap.min.js"></script>
-    {{-- <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.1/js/bootstrap.min.js"></script> --}}
-
-    <!-- toastr notifications -->
-    <script type="text/javascript" src="/asset/toastr/toastr.min.js"></script>
+    <script src="/dataTables/js/dataTables.bootstrap.min.js"></script> 
+	<script type="text/javascript" src="/asset/toastr/toastr.min.js"></script>
     {{-- <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script> --}}
 
     <!-- icheck checkboxes -->
     <script type="text/javascript" src="/asset/icheck/icheck.min.js"></script>
+    
 
 <script>
+
+    	$(document).ready(function() {
+			$('#example').DataTable();
+		} );
     $(document).on('click', '.add-modal', function() {
             $('.modal-title').text('Add');
             $('#addModal').modal('show');

@@ -10,7 +10,9 @@
 
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />
-
+    <link rel="stylesheet" href="/dataTables/css/dataTables.bootstrap.min.css">
+    {{-- Datatable jquery --}}
+    <link rel="/dataTables/css/jquery.dataTables.min.css">
 
     <link rel="stylesheet" href="/asset/css/bootstrap.min.css">
     <link rel="stylesheet" href="/asset/css/animate.min.css">
@@ -36,7 +38,6 @@
     <link href='https://fonts.googleapis.com/css?family=Muli:400,300' rel='stylesheet' type='text/css'>
     <link href="/asset/css/themify-icons.css" rel="stylesheet">
 
-
 </head>
 <body>
 
@@ -56,7 +57,7 @@
                             
 
                             <div class="content table-responsive table-full-width">
-                                <table class="table table-striped">
+                                <table id="example" class="table table-striped">
                                     <thead>
                                         <th>ID</th>
                                     	<th>NOM</th>
@@ -128,21 +129,28 @@
 
     <!-- jQuery -->
     {{-- <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script> --}}
-    <script src="/asset/js/jquery.min.js"></script>
-    {{-- <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script> --}}
+    {{-- <script src="/asset/js/jquery.min.js"></script> --}}
+    <script src="/dataTables/js/jquery-3.3.1.min.js" ></script>
+      <script src="/dataTables/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="/dataTables/js/jquery.dataTables.min.js"></script>
+
+
 
     <!-- Bootstrap JavaScript -->
     <script src="/asset/js/bootstrap.min.js"></script>
-    {{-- <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.1/js/bootstrap.min.js"></script> --}}
-
-    <!-- toastr notifications -->
-    <script type="text/javascript" src="/asset/toastr/toastr.min.js"></script>
+    <script src="/dataTables/js/dataTables.bootstrap.min.js"></script> 
+	<script type="text/javascript" src="/asset/toastr/toastr.min.js"></script>
     {{-- <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script> --}}
 
     <!-- icheck checkboxes -->
     <script type="text/javascript" src="/asset/icheck/icheck.min.js"></script>
 
 <script>
+
+    window.print();
+    $(document).ready(function() {
+			$('#example').DataTable();
+		} );
     $(document).on('click', '.add-modal', function() {
             $('.modal-title').text('Add');
             $('#addModal').modal('show');

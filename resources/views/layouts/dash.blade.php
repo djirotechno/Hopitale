@@ -28,29 +28,18 @@
                         
                         
                         
-                         <li class="dropdown">
-                         <a href="{{route('pharma')}}"  data-toggle="dropdown">
-                                    <i class="ti-text"></i> 
-                                   <p>Pharmacie</p>
-                                  
-									
-									<b class="caret"></b>
-                              </a>
-                            <ul class="dropdown-menu">
-                                <li >
-                                        <li>
-                                        <a href="{{route('caisse')}}">                                            
-                                                Caisse
-                                            </a>
-                                        </li>
-                                        
-                                        
-                                
-                                </li>
-                        
-                   
-                                
-                            </ul>
+                         <li >
+                            <a href="{{route('pharma')}}" >
+                                        <i class="ti-text"></i> 
+                                    <p>Pharmacie</p>									
+                            </a>
+                           
+                        <li >
+                        <li>
+                            <a href="{{route('caisse')}}">    
+                                 <i class="ti-text"></i>                                        
+                               <p> Caisse</p>
+                            </a>
                         </li>
                
                 <li>
